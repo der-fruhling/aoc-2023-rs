@@ -1,0 +1,12 @@
+[package]
+name = "aoc-2023-rs"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "day1-1"
+path = "src/bin/day1/day1-1.rs"
+
+[[name]]
+name = "day1-2"
+path = "src/bin/day1/day1-2.rs"
