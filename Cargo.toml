@@ -7,6 +7,10 @@ edition = "2021"
 name = "day1-1"
 path = "src/bin/day1/day1-1.rs"
 
-[[name]]
+[[bin]]
 name = "day1-2"
 path = "src/bin/day1/day1-2.rs"
+
+[[bin]]
+name = "day2"
+path = "src/bin/day2/day2.rs"
