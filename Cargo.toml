@@ -14,3 +14,10 @@ path = "src/bin/day1/day1-2.rs"
 [[bin]]
 name = "day2"
 path = "src/bin/day2/day2.rs"
+
+[[bin]]
+name = "day3"
+path = "src/bin/day3/day3.rs"
+
+[dependencies]
+itertools = "0.12.0"

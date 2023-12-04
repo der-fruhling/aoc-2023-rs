@@ -1,0 +1,40 @@
+Position
+    x usize
+    y usize
+
+Entry
+    grid &Grid
+    position Position
+    character char
+
+    fn adjacent_entries(&self) -> Iterator<Output = &Entry>
+        // => use grid.entries to return all adjacent entries
+
+    fn is_digit(&self) -> bool
+        // => char.is_digit()
+    fn is_first_digit(&self) -> bool
+        // => check if is_digit() and entry to the left is !is_digit()
+    fn is_symbol(&self) -> bool
+        // => is it not 0-9 or .?
+    fn is_digit_adjacent_to_symbol(&self) -> bool
+        // => use position to calculate all adjacent positions, true if any are symbols
+
+Candidate
+    entries &[&Entry]
+    number u32
+    
+    fn is_any_digit_adjacent_to_symbol(&self) -> bool
+        // => any of entries.is_digit_adjacent_to_symbol()
+
+Grid
+    entries[][] Entry
+    fn candidates(&self) -> Iterator<Output = Candidate>
+        // => returns all candidates for part numbers
+    fn part_numbers(&self) -> Iterator<Output = Candidate>
+        // => returns all valid part numbers (candidates adjacent to a symbol)
+    fn add_entry(&mut self, position: Position, character: char) -> &mut Entry
+        // => adds entry (returns reference to new entry)
+    fn get_entry(&self, position: Position) -> &Entry
+
+    impl From<&str>
+        // => parses input file
