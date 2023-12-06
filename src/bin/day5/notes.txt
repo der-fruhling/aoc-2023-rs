@@ -12,10 +12,10 @@ struct ConversionMapByRange
     fn new(<data>, parent: &dyn Index) -> Self
 
     fn lookup_in_parent(idx: i64) -> i64
-    fn lookup(idx: i64) -> 64
+    fn lookup(idx: i64) -> i64
 
     impl Index(idx: i64) -> i64
-        let entry be first entry in mapping where: idx is in entry.source (a range)
+        let entry be first entry in mapping where: idx in entry.source (a range)
         let value be idx + entry.additive()
         returns next_step[value]
 
