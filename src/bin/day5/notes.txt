@@ -1,0 +1,34 @@
+struct ConversionMapEntry
+    source: Range<i64>
+    target: Range<i64>
+
+    fn offset() -> i64
+        returns target.start - source.start
+
+struct ConversionMapByRange
+    mapping: Vec<ConversionMapEntry>
+    parent: &dyn Index
+
+    fn new(<data>, parent: &dyn Index) -> Self
+
+    fn lookup_in_parent(idx: i64) -> i64
+    fn lookup(idx: i64) -> 64
+
+    impl Index(idx: i64) -> i64
+        let entry be first entry in mapping where: idx is in entry.source (a range)
+        let value be idx + entry.additive()
+        returns next_step[value]
+
+struct ConversionMapDummy
+    impl Index(idx: i64) -> i64
+        returns idx
+
+struct ConversionMapper
+    noop: ConversionMapDummy
+    humidity_to_location: ConversionMapByRange::new(... data for humidity-to-location ..., noop)
+    temperature_to_location: ConversionMapByRange::new(... data for temperature-to-humidity..., humidity_to_location)
+    ...
+    seed_to_location: ConversionMapByRange::new(... data for seed-to-soil ..., soil_to_location)
+
+    impl Index(idx: i64) -> i64
+        returns seed_to_location[idx]
