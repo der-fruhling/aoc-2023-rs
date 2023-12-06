@@ -1,0 +1,10 @@
+Card
+    id u32
+    winning_numbers Vec<u32>
+    my_numbers Vec<u32>
+    
+    fn my_winning_numbers(&self) -> Vec<u32>
+    fn score(&self) -> u32
+
+    impl From<&str>
+        // => parses line
