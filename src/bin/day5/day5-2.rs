@@ -1,4 +1,4 @@
-use std::{env, sync::Arc};
+use std::{env, sync::Arc, io::{self, Write}};
 
 use crate::common::ConversionMapper;
 
@@ -32,8 +32,9 @@ fn main() {
                 println!("\x1b[0G\x1b[2K{} produced {} (less than {})", i, result, smallest);
                 print!("Current smallest: {}", smallest);
                 smallest = result;
-            } else if total_iterations % 4096 == 0 {
+            } else if total_iterations % (1 << 18) == 0 {
                 print!("\x1b[0G\x1b[2KCurrent smallest: {} (iteration: {}/{})", smallest, i - start, count);
+                io::stdout().flush().expect("No stdout to flush!");
             }
             
             total_iterations += 1;
