@@ -15,12 +15,6 @@ impl ConversionMapEntry {
     }
 }
 
-impl From<&str> for ConversionMapEntry {
-    fn from(value: &str) -> Self {
-        todo!()
-    }
-}
-
 pub trait ConversionStep: Debug {
     fn lookup(&self, index: i64) -> i64;
 }
