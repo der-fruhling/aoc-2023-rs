@@ -1,0 +1,23 @@
+// For each whole millisecond you spend at the beginning of the race holding down the button, the boat's speed increases by one millimeter per millisecond
+
+struct RaceResult
+    time u32;
+    distance u32;
+    charging_time Option<u32>;
+    travel_time Option<u32>;
+
+    fn cmp(a: Self, b: u32) // compare distance
+
+struct Boat
+    speed u32;
+    distance_traveled u32;
+
+    fn charge(&mut self);
+        // => speed += 1
+    fn travel(&mut self);
+        // => distance_traveled += speed
+    fn simulate_once(self, charging_dist: u32, travel_dist: u32) -> RaceResult;
+
+    fn simulate(total_time: u32) -> Vec<RaceResult>;
+    fn find_winning_records(total_time: u32, record: u32) -> Vec<RaceResult>;
+    
