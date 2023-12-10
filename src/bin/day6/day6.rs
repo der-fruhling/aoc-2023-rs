@@ -1,10 +1,9 @@
 use std::{env, cmp::Ordering};
 
 #[derive(Debug, Eq)]
+#[repr(transparent)]
 struct RaceResult {
-    time: u64,
-    distance: u64,
-    charging_time: Option<u64>,
+    distance: u64
 }
 
 impl PartialOrd<u64> for RaceResult {
@@ -29,11 +28,7 @@ fn simulate_once(charge_time: u64, travel_time: u64) -> RaceResult {
     let speed = charge_time;
     let distance = speed * travel_time;
     
-    RaceResult {
-        time: charge_time + travel_time,
-        distance,
-        charging_time: Some(charge_time)
-    }
+    RaceResult { distance }
 }
 
 fn simulate(total_time: u64) -> Vec<RaceResult> {
