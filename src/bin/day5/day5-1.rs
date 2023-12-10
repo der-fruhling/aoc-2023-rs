@@ -150,4 +150,59 @@ fn main() {
 
     let min_seed = mapper.seeds.iter().map(|v| mapper.lookup(*v)).min();
     println!("Lowest seed: {:?}", min_seed);
+
+    const CONTENT_LENGTH: usize = 4096;
+
+    let (tx, seeds_to_parse) = spmc::channel();
+    let dispatcher_mapper = mapper.clone();
+
+    println!("Running with {} threads", num_cpus::get());
+
+    let threads = (0..num_cpus::get()).map(|thread_idx| {
+        let seeds_to_parse = seeds_to_parse.clone();
+        let mapper = mapper.clone();
+
+        thread::spawn(move || {
+            println!("[brute-force {}] starting brute-forcing", thread_idx);
+
+            let mut lowest_value = i64::MAX;
+
+            for i in 1.. {
+                println!("[brute-force {}] starting iteration {}", thread_idx, i);
+                let Ok(values) = seeds_to_parse.recv() else { break };
+
+                for seed in values {
+                    let value = mapper.lookup(seed);
+                    if value < lowest_value {
+                        lowest_value = value;
+                    }
+                }
+            }
+
+            println!("[brute-force {}] finished", thread_idx);
+
+            lowest_value
+        })
+    });
+
+    let send_thread = thread::spawn(move || {
+        let mut tx = tx;
+
+        let mapper = dispatcher_mapper;
+
+        for chunks in mapper.seeds.chunks_exact(2)
+            .map(|slice| -> [i64; 2] { slice.try_into().unwrap() })
+            .map(|[start, length]| (start..(start + length)).chunks(CONTENT_LENGTH)) {
+            for chunk in chunks.into_iter() {
+                let data: Vec<i64> = chunk.collect();
+                tx.send(data).expect("Failed to send work data");
+            }
+        }
+    });
+
+    send_thread.join().expect("Failed to join send thread");
+
+    let lowest_value = threads.map(|thread| thread.join().unwrap()).min();
+
+    println!("Real lowest value (pt. 2): {:?}", lowest_value);
 }
