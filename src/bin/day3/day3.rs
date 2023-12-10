@@ -1,4 +1,4 @@
-use std::{ops::Add, env, mem::MaybeUninit, rc::{Rc, Weak}, marker::PhantomData, cell::RefCell, borrow::{Borrow, BorrowMut}, hash::Hash};
+use std::{ops::Add, env, rc::{Rc, Weak}, cell::RefCell, hash::Hash};
 use itertools::Itertools;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -87,10 +87,6 @@ struct Candidate {
 }
 
 impl Candidate {
-    pub fn start_position(&self) -> &Position {
-        &self.entries[0].position
-    }
-    
     pub fn is_part_number(&self) -> bool {
         self.entries.iter().fold(false, |acc, b| acc || b.is_part_number_trigger())
     }
@@ -188,13 +184,13 @@ fn main() {
 
     let string = String::from_utf8(bytes).expect("Invalid file contents! Not UTF-8?");
     
-    let mut x = 0i32;
-    let mut y = 0i32;
+    let _x = 0i32;
+    let _y = 0i32;
     
     let height = string.lines().count();
     let width = string.lines().nth(0).unwrap().len();
     
-    let mut grid = Rc::new(Grid {
+    let grid = Rc::new(Grid {
         grid_width: width,
         grid_height: height,
         entries: RefCell::new(Vec::new())

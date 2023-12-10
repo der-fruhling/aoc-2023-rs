@@ -1,4 +1,4 @@
-use std::{fs, env, cmp::{min, max}};
+use std::{env, cmp::{max}};
 
 const MAX_R: u32 = 12;
 const MAX_G: u32 = 13;

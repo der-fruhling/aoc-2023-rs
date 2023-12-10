@@ -1,4 +1,4 @@
-use std::{env, collections::{HashSet, HashMap}};
+use std::{env, collections::{HashSet}};
 
 #[derive(Debug, Clone)]
 struct Card {
