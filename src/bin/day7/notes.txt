@@ -1,0 +1,19 @@
+enum Card : derives Ord
+    Two, Three, Four, Five, Six, Seven, Eight, Nine, T, J, Q, K, A
+
+enum Kind : derives Ord
+    HighCard, OnePair, TwoPair, ThreeOfAKind, FullHouse, FourOfAKind, FiveOfAKind
+
+struct Hand
+    cards [Card; 5]
+    bid u32
+
+    fn type -> Kind
+    fn score -> u32
+
+    impl Ord
+        fn cmp(other: Hand) -> Ordering
+
+struct Game
+    hands Vec<Hand>
+
